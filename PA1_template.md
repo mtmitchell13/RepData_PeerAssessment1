@@ -74,11 +74,12 @@ Calculate the 5-minute interval that contains the maximum number of steps, on av
 
 
 ```r
-with(plotdata2, max(average_steps))
+subset(plotdata2, average_steps==max(average_steps))
 ```
 
 ```
-## [1] 206.1698
+##     interval average_steps
+## 104      835      206.1698
 ```
 
 
@@ -95,7 +96,7 @@ sum(is.na(data$steps))
 ## [1] 2304
 ```
 
-Replace NA step values with the average step count for the given 5-minute interval. Create a new dataset that is equal to the original dataset but with the missing data filled in.
+Replace NA step values with the average step count for the given 5-minute interval. Create a new dataset that is equal to the original dataset but with the missing data filled in.  To do this, first the original dataset is subsetted for rows with NA step values (NAdata).  Then, this dataset is merged with the dataset from plot2 that showed the average daily step counts by 5-minute interval.  The rows with NA step values in the original dataset were then removed, and replaced with the average values by interval by appending them to the dataset (rbind command).
 
 
 ```r
@@ -147,7 +148,7 @@ meandif <- with(plotdata3, mean(steps)) - with(plotdata1, mean(steps))
 meddif <- with(plotdata3, median(steps)) - with(plotdata1, median(steps))
 ```
 
-The difference to the mean total steps taken per day after imputing NA values is 1411.959171.  The difference to the median total steps taken per day after imputing NA values is 371.1886792.
+By replacing the NA values with the average daily step value for the corresponding 5-minute interval, both the mean and median values for total daily steps increased.  The difference to the mean total steps taken per day after imputing NA values is 1411.959171.  The difference to the median total steps taken per day after imputing NA values is 371.1886792.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
